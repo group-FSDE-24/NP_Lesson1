@@ -61,9 +61,9 @@ class Program
                     Console.WriteLine($"{listener.RemoteEndPoint}: {msj}");
 
 
-                    if(msj == "Exit")
+                    if(msj == "exit")
                     {
-
+                        client.Shutdown(SocketShutdown.Both);
                     }
                 }
             });
