@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace Server;
 
@@ -38,12 +39,34 @@ class Program
         listener.Listen(backlog);
 
         Console.WriteLine($"Server listen on {listener.LocalEndPoint}");
-
+        
         while (true)
         {
-            listener.Accept();
-
+            var client = listener.Accept();
+            
             Console.WriteLine($"{listener.RemoteEndPoint} connected...");
+
+
+            Task.Run(() =>
+            {
+                var buffer = new byte[1024];
+                var len = 0;
+                var msj = string.Empty;
+
+                while (true)
+                {
+                    len = client.Receive(buffer);
+                    msj = Encoding.Default.GetString(buffer, 0, len);
+
+                    Console.WriteLine($"{listener.RemoteEndPoint}: {msj}");
+
+
+                    if(msj == "Exit")
+                    {
+
+                    }
+                }
+            });
         }
 
 
