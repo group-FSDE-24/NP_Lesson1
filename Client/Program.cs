@@ -28,21 +28,21 @@ class Program
             {
                 Console.WriteLine("Connected to Server...");
 
-                //Task.Run(() =>
-                //{
-                //    var buffer = new byte[1024];
-                //    var len = 0;
-                //    var msj = string.Empty;
+                Task.Run(() =>
+                {
+                    var buffer = new byte[1024];
+                    var len = 0;
+                    var msj = string.Empty;
 
-                //    while (true)
-                //    {
-                //        len = client.Receive(buffer);
-                //        msj = Encoding.Default.GetString(buffer, 0, len);
+                    while (true)
+                    {
+                        len = client.Receive(buffer);
+                        msj = Encoding.Default.GetString(buffer, 0, len);
 
-                //        Console.WriteLine(msj);
-                //    }
+                        Console.WriteLine(msj);
+                    }
 
-                //});
+                });
 
                 while (true)
                 {

@@ -19,6 +19,8 @@ class Program
 {
     static void Main()
     {
+        var clients = new List<Socket>();
+
         var listener = new Socket(AddressFamily.InterNetwork,
             SocketType.Stream,
             ProtocolType.Tcp);
@@ -43,7 +45,7 @@ class Program
         while (true)
         {
             var client = listener.Accept();
-            
+            clients.Add(client);
             Console.WriteLine($"{listener.RemoteEndPoint} connected...");
 
 
@@ -65,8 +67,20 @@ class Program
                     {
                         client.Shutdown(SocketShutdown.Both);
                     }
+
+                    foreach (var c in clients)
+                    {
+                        if (client != c)
+                            c.Send(Encoding.Default.GetBytes(msj));
+                    }
                 }
+
+
+                
             });
+
+
+            
         }
 
 
