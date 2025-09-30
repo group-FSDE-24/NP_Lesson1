@@ -19,12 +19,13 @@ class Program
 {
     static void Main()
     {
-        var clients = new List<Socket>();
 
         var listener = new Socket(AddressFamily.InterNetwork,
             SocketType.Stream,
             ProtocolType.Tcp);
 
+        var clients = new List<Socket>();
+        
         var ip = IPAddress.Parse("127.0.0.1");
 
         var port = 8005;
@@ -61,7 +62,6 @@ class Program
                     msj = Encoding.Default.GetString(buffer, 0, len);
 
                     Console.WriteLine($"{listener.RemoteEndPoint}: {msj}");
-
 
                     if(msj == "exit")
                     {
